@@ -1,16 +1,32 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import Nav from "@/components/Nav";
-import {useState} from "react";
+import { useState } from "react";
 import Logo from "@/components/Logo";
+import Image from "next/image";
 
-export default function Layout({children}) {
-  const [showNav,setShowNav] = useState(false);
+export default function Layout({ children }) {
+  const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
   if (!session) {
     return (
-      <div className="bg-bgGray w-screen h-screen flex items-center">
-        <div className="text-center w-full">
-          <button onClick={() => signIn('google')} className="bg-white p-2 px-4 rounded-lg">Login with Google</button>
+      <div className="bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 w-screen h-screen flex items-center justify-center">
+        <div className=" w-72 h-96 backdrop:blur-lg bg-white/40 flex-col items-center justify-center pb-16 rounded-3xl">
+          <div className="flex-col justify-center items-center basis-1/2 h-2/3 font-extrabold text-3xl text-blue-500">
+            <span className="flex justify-center h-1/2 items-center pt-16">
+              Welcome Back!!
+            </span>
+            <span className="flex justify-center rounded-full">
+              <Image src={"/Pika.png"} width={100} height={100}></Image>
+            </span>
+          </div>
+          <div className="text-center w-full flex justify-center items-end m-auto h-1/3">
+            <button
+              onClick={() => signIn("google")}
+              className="bg-transparent border-2 border-blue-500  hover:bg-blue-500 text-white p-3 px-8 rounded-3xl"
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -20,8 +36,17 @@ export default function Layout({children}) {
     <div className="bg-bgGray min-h-screen ">
       <div className="block md:hidden flex items-center p-4">
         <button onClick={() => setShowNav(true)}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-            <path fillRule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clipRule="evenodd"
+            />
           </svg>
         </button>
         <div className="flex grow justify-center mr-6">
@@ -30,9 +55,7 @@ export default function Layout({children}) {
       </div>
       <div className="flex">
         <Nav show={showNav} />
-        <div className="flex-grow p-4">
-          {children}
-        </div>
+        <div className="flex-grow p-4 m-2 rounded-lg ml-0">{children}</div>
       </div>
     </div>
   );
